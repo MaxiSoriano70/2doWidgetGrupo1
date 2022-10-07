@@ -1,114 +1,152 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_switch/flutter_switch.dart';
-
 
 class FilterItem{
-  String? text;
-  bool? isActive;
-  IconData? icon;
-  Color? backgroundColor;
+  String? _text;
+  bool? _isActive;
+  IconData? _icon;
+  Color? _backgroundColor;
 
-  FilterItem({required this.text,required this.icon,this.isActive=false,this.backgroundColor=Colors.cyan});
+  FilterItem(String text,IconData icon){
+    _text=text;
+    _isActive=false;
+    _icon=icon;
+    _backgroundColor=Colors.cyan;
+  }
+
+  String get text => _text!;
+
+  set text(String value) {
+    _text = value;
+  }
+
+  bool get isActive => _isActive!;
+
+  set isActive(bool value) {
+    _isActive = value;
+  }
+
+  IconData get icon => _icon!;
+
+  set icon(IconData value) {
+    _icon = value;
+  }
+
+  Color get backgroundColor => _backgroundColor!;
+
+  set backgroundColor(Color value) {
+    _backgroundColor = value;
+  }
 
   void changeState(){
-    isActive=!isActive!;
+    isActive=!isActive;
   }
 
 }
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+  
+  final List<FilterItem> itemFilters=[];
+
+  List<FilterItem> newListItemFilters(List<FilterItem> list){
+    FilterItem item1=FilterItem("Mantenimiento 1",Icons.pentagon);
+    list.add(item1);
+    FilterItem item2=FilterItem("Mantenimiento 2",Icons.add_circle);
+    list.add(item2);
+    FilterItem item3=FilterItem("Mantenimiento 3",Icons.pentagon);
+    list.add(item3);
+    FilterItem item4=FilterItem("Mantenimiento 4",Icons.add_circle);
+    list.add(item4);
+    FilterItem item5=FilterItem("Mantenimiento 5",Icons.pentagon);
+    list.add(item5);
+    FilterItem item6=FilterItem("Mantenimiento 6",Icons.add_circle);
+    list.add(item6);
+    FilterItem item7=FilterItem("Mantenimiento 7",Icons.pentagon);
+    list.add(item7);
+    FilterItem item8=FilterItem("Mantenimiento 8",Icons.add_circle);
+    list.add(item8);
+    FilterItem item9=FilterItem("Mantenimiento 9",Icons.pentagon);
+    list.add(item9);
+    FilterItem item10=FilterItem("Mantenimiento 10",Icons.add_circle);
+    list.add(item10);
+    
+    return list;
+  }
+  
+  void _showAlert(BuildContext context,List<FilterItem> list){
+    showDialog(
+        context: context,
+        builder:(_) => AlertDialog(
+          title: const Text("Filtros"),
+          content: _contentAlert(list),
+        )
+    );
+  }
+
+  void onChangeFunction(FilterItem item){
+    item.changeState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(child: Container(color: Colors.grey,)),
-          AlertDialogContenido(),
-          Expanded(child: Container(color: Colors.grey,)),
-        ],
-      ),
-    );
-  }
-}
-
-
-class AlertDialogContenido extends StatefulWidget {
-  const AlertDialogContenido({Key? key}) : super(key: key);
-  @override
-  State<AlertDialogContenido> createState() => _AlertDialogContenidoState();
-}
-
-class _AlertDialogContenidoState extends State<AlertDialogContenido> {
-  bool selected=false;
-  bool _value=false;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
-      color: Colors.white,
-      child: ListView(
-        children: [
-          SwitchListTile(
-              value: _value,
-              onChanged: (value){})
-        ],
-      )
-
-
-      /*SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        home: Column(
           children: [
-            Item(selected),
-            const Divider(),
-            Item(selected),
-            const Divider(),
-            Item(selected),
-            const Divider(),
-            Item(selected),
-            const Divider(),
-            Item(selected),
-            const Divider(),
-            Item(selected),
-            const Divider(),
-            Item(selected),
+            Expanded(child: Container(color: Colors.white24,)),
+            RaisedButton(
+                onPressed: (){
+                  _showAlert(context, newListItemFilters(itemFilters));
+                },
+              child: const Text("Boton loco"),
+            ),
+            //_buttonAlert(),
+            Expanded(child: Container(color: Colors.red,)),
 
           ],
-        ),
-      ),*/
+        )
     );
   }
-  Widget Item(bool value){
+  
+  Widget _contentAlert(List<FilterItem> list){
     return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: const [
-              CircleAvatar(child: Icon(Icons.confirmation_num),),
-              SizedBox(width: 15,),
-              Text("Mantenimiento",style: TextStyle(fontSize: 20,color: Colors.black),)
-            ],
-          ),
-          FlutterSwitch(
-              activeColor: Colors.cyan,
-              value: value,
-              onToggle: (bool value){
-                setState(() {
-                  value=!value;
-                });
-              })
-        ],
+      padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 20),
+      child: ListView.separated(
+        itemCount: list.length,
+        separatorBuilder: (BuildContext context, int index){
+          return const Divider(height: 15,);
+        },
+        itemBuilder: (BuildContext context, int index){
+          return _itemFilter(list[index]);
+        },
       ),
+      
+    );
+  }
+
+  Widget _itemFilter(FilterItem item){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            CircleAvatar(backgroundColor: item._backgroundColor,child: Icon(item._icon),),
+            const SizedBox(width: 15,),
+            Text(item.text)
+          ],
+        ),
+        CupertinoSwitch(
+            value: item.isActive,
+            onChanged: (item){
+            }
+        )
+      ],
     );
   }
 }

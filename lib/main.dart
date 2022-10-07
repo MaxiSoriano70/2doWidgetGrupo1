@@ -1,6 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 
+
+class FilterItem{
+  String? text;
+  bool? isActive;
+  IconData? icon;
+  Color? backgroundColor;
+
+  FilterItem({required this.text,required this.icon,this.isActive=false,this.backgroundColor=Colors.cyan});
+
+  void changeState(){
+    isActive=!isActive!;
+  }
+
+}
+
 void main() {
   runApp(const MyApp());
 }
@@ -31,12 +46,23 @@ class AlertDialogContenido extends StatefulWidget {
 
 class _AlertDialogContenidoState extends State<AlertDialogContenido> {
   bool selected=false;
+  bool _value=false;
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
       color: Colors.white,
-      child: SingleChildScrollView(
+      child: ListView(
+        children: [
+          SwitchListTile(
+              value: _value,
+              onChanged: (value){})
+        ],
+      )
+
+
+      /*SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -56,7 +82,7 @@ class _AlertDialogContenidoState extends State<AlertDialogContenido> {
 
           ],
         ),
-      ),
+      ),*/
     );
   }
   Widget Item(bool value){
@@ -69,7 +95,7 @@ class _AlertDialogContenidoState extends State<AlertDialogContenido> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: const [
               CircleAvatar(child: Icon(Icons.confirmation_num),),
-              SizedBox(width: 5,),
+              SizedBox(width: 15,),
               Text("Mantenimiento",style: TextStyle(fontSize: 20,color: Colors.black),)
             ],
           ),

@@ -45,7 +45,7 @@ class FilterItem{
 }
 
 void main() {
-  runApp(MyApp());
+  runApp(MaterialApp(home: MyApp()));
 }
 
 
@@ -85,16 +85,15 @@ class _MyAppState extends State<MyApp> {
     return list;
   }
 
-  void _showAlert(BuildContext context,List<FilterItem> list){
-    showDialog(
-        context: context,
-        builder:(_) => AlertDialog(
-          title: const Text("Filtros"),
-          content: _contentAlert(list),
-          actions: [],
-        )
-    );
-  }
+  // Widget _showAlert(BuildContext context,List<FilterItem> list){
+  //   return showDialog(
+  //       context: context,
+  //       builder:(_) => AlertDialog(
+  //         title: const Text("Filtros"),
+  //         content: _contentAlert(list),
+  //       )
+  //   );
+  // }
 
   void onChangeFunction(FilterItem item){
     item.changeState();
@@ -107,21 +106,28 @@ class _MyAppState extends State<MyApp> {
           children: [
             Expanded(child: Container(color: Colors.white24,)),
             ElevatedButton(onPressed: (){
-              _showAlert(context, newListItemFilters(itemFilters));
+              showDialog(
+                  context: context,
+                  builder:(BuildContext context) => AlertDialog(
+                    title: const Text("Filtros"),
+                    content: _contentAlert(newListItemFilters(itemFilters)),
+              ));
+              //_showAlert(context, newListItemFilters(itemFilters));
             },
-              child: const Text("Boton loco"),),
+              child: const Text("Boton loco"),
+            ),
             //_contentAlert(newListItemFilters(itemFilters)),
             //_buttonAlert(),
             Expanded(child: Container(color: Colors.red,)),
-
           ],
         )
     );
   }
 
   Widget _contentAlert(List<FilterItem> list){
-    return Container(
+    return SizedBox(
       height: 500,
+      width: 350,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 20),
         child: ListView.separated(
@@ -149,14 +155,19 @@ class _MyAppState extends State<MyApp> {
             Text(item.text)
           ],
         ),
-        CupertinoSwitch(
-            value: item.isActive,
-            onChanged: (v){
-              setState(() {
-                onChangeFunction(item);
-              });
-            }
-        )
+        InkWell(
+          onTap: (){setState(() {
+            onChangeFunction(item);
+          });},
+          child: CupertinoSwitch(
+          value: item.isActive,
+          onChanged: (bool value){
+            setState(() {
+              item.isActive=value;
+            });
+          },
+        ),)
+
       ],
     );
   }

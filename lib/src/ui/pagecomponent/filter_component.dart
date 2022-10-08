@@ -22,17 +22,18 @@ class _FilterComponentState extends State<FilterComponent> {
             showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return AlertDialog(
-                    icon: const SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: Align(
-                            alignment: Alignment.topRight,
-                            child: CloseButton())),
-                    iconPadding: EdgeInsets.zero,
-                    buttonPadding: EdgeInsets.zero,
-                    scrollable: true,
-                    content: Column(
+                  return Dialog(
+                    insetPadding: EdgeInsets.all(20),
+                    // icon: const SizedBox(
+                    //     height: 20,
+                    //     width: 20,
+                    //     child: Align(
+                    //         alignment: Alignment.topRight,
+                    //         child: CloseButton())),
+                    // iconPadding: EdgeInsets.zero,
+                    // buttonPadding: EdgeInsets.zero,
+                    // scrollable: true,
+                    child: Column(
                       children: [
                         _header(),
                         const Divider(
@@ -58,8 +59,10 @@ class _FilterComponentState extends State<FilterComponent> {
     return Center(
       child: Column(
         children: <Widget>[
-          AlertDialog(
-              content: Container(
+          Dialog(
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15.0))),
+              child: Container(
                 height: 150,
                 width: 75,
                 child: SingleChildScrollView(
@@ -113,9 +116,7 @@ class _FilterComponentState extends State<FilterComponent> {
                     )
                   ]),
                 ),
-              ),
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15.0))))
+              ))
         ],
       ),
     );

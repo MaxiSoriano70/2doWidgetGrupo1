@@ -16,34 +16,42 @@ class _FilterComponentState extends State<FilterComponent> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: AlertDialog(
-        icon: SizedBox(
-            height: 20,
-            width: 20,
-            child: Align(
-              alignment: Alignment.topRight,
-                child: const CloseButton())),
-        iconPadding: EdgeInsets.zero,
-        buttonPadding: EdgeInsets.zero,
-        scrollable: true,
-        content: Column(
-          children: [
-            _header(),
-            const Divider(thickness: 2.5,),
-            SizedBox(
-                height: 300,
-                width: 300,
-                child: SingleChildScrollView(
-                    child: _body()
-                )
-            ),
-            const SizedBox(height: 20,),
-            _button(),
-          ],
-        ),
-      ),
-    );
+    return  FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    icon: const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: Align(
+                            alignment: Alignment.topRight,
+                            child: CloseButton())),
+                    iconPadding: EdgeInsets.zero,
+                    buttonPadding: EdgeInsets.zero,
+                    scrollable: true,
+                    content: Column(
+                      children: [
+                        _header(),
+                        const Divider(
+                          thickness: 2.5,
+                        ),
+                        SizedBox(
+                            height: 450,
+                            width: 300,
+                            child: SingleChildScrollView(child: _body())),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        _button(),
+                      ],
+                    ),
+                  );
+                });
+          }
+          );
   }
 
   Center _bodyTest() {
@@ -119,9 +127,7 @@ class _FilterComponentState extends State<FilterComponent> {
       children: const [
         Text(
           'Filters',
-          style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 25),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
         )
       ],
     );
@@ -175,7 +181,8 @@ class _FilterComponentState extends State<FilterComponent> {
         },
         title: const Text('Toggle 3'),
         secondary: const Icon(Icons.add_chart),
-      ),const Divider(),
+      ),
+      const Divider(),
       SwitchListTile(
         contentPadding: const EdgeInsets.all(3),
         value: _toggled4,
@@ -186,7 +193,8 @@ class _FilterComponentState extends State<FilterComponent> {
         },
         title: const Text('Toggle 3'),
         secondary: const Icon(Icons.add_chart),
-      ),const Divider(),
+      ),
+      const Divider(),
       SwitchListTile(
         contentPadding: const EdgeInsets.all(3),
         value: _toggled4,
@@ -197,7 +205,8 @@ class _FilterComponentState extends State<FilterComponent> {
         },
         title: const Text('Toggle 3'),
         secondary: const Icon(Icons.add_chart),
-      ),const Divider(),
+      ),
+      const Divider(),
       SwitchListTile(
         contentPadding: const EdgeInsets.all(3),
         value: _toggled4,
@@ -208,7 +217,8 @@ class _FilterComponentState extends State<FilterComponent> {
         },
         title: const Text('Toggle 3'),
         secondary: const Icon(Icons.add_chart),
-      ),const Divider(),
+      ),
+      const Divider(),
       SwitchListTile(
         contentPadding: const EdgeInsets.all(3),
         value: _toggled4,
@@ -219,7 +229,8 @@ class _FilterComponentState extends State<FilterComponent> {
         },
         title: const Text('Toggle 3'),
         secondary: const Icon(Icons.add_chart),
-      ),const Divider(),
+      ),
+      const Divider(),
       SwitchListTile(
         contentPadding: const EdgeInsets.all(3),
         value: _toggled4,
@@ -230,7 +241,8 @@ class _FilterComponentState extends State<FilterComponent> {
         },
         title: const Text('Toggle 3'),
         secondary: const Icon(Icons.add_chart),
-      ),const Divider(),
+      ),
+      const Divider(),
       SwitchListTile(
         contentPadding: const EdgeInsets.all(3),
         value: _toggled4,
@@ -241,7 +253,8 @@ class _FilterComponentState extends State<FilterComponent> {
         },
         title: const Text('Toggle 3'),
         secondary: const Icon(Icons.add_chart),
-      ),const Divider(),
+      ),
+      const Divider(),
       SwitchListTile(
         contentPadding: const EdgeInsets.all(3),
         value: _toggled4,
@@ -270,14 +283,16 @@ class _FilterComponentState extends State<FilterComponent> {
 
   Widget _button() {
     return Container(
-      // color: Colors.blue,
+        // color: Colors.blue,
         width: 300,
         child: const ElevatedButton(
-            style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.blue)),
+            style: ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(Colors.blue)),
             onPressed: null,
-            child: Text('Aceptar',style: TextStyle(color: Colors.white),)
-        )
-    );
+            child: Text(
+              'Aceptar',
+              style: TextStyle(color: Colors.white),
+            )));
   }
 }
 

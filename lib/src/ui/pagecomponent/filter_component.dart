@@ -127,7 +127,7 @@ class _FilterComponentState extends State<FilterComponent> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: const [
         Text(
-          'Filters',
+          'Filtros',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
         )
       ],

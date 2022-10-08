@@ -48,9 +48,17 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+
+
+
+class MyApp extends StatefulWidget {
   MyApp({Key? key}) : super(key: key);
-  
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   final List<FilterItem> itemFilters=[];
 
   List<FilterItem> newListItemFilters(List<FilterItem> list){
@@ -74,16 +82,16 @@ class MyApp extends StatelessWidget {
     list.add(item9);
     FilterItem item10=FilterItem("Mantenimiento 10",Icons.add_circle);
     list.add(item10);
-    
     return list;
   }
-  
+
   void _showAlert(BuildContext context,List<FilterItem> list){
     showDialog(
         context: context,
         builder:(_) => AlertDialog(
           title: const Text("Filtros"),
           content: _contentAlert(list),
+          actions: [],
         )
     );
   }
@@ -92,19 +100,17 @@ class MyApp extends StatelessWidget {
     item.changeState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Column(
           children: [
             Expanded(child: Container(color: Colors.white24,)),
-            RaisedButton(
-                onPressed: (){
-                  _showAlert(context, newListItemFilters(itemFilters));
-                },
-              child: const Text("Boton loco"),
-            ),
+            ElevatedButton(onPressed: (){
+              _showAlert(context, newListItemFilters(itemFilters));
+            },
+              child: const Text("Boton loco"),),
+            //_contentAlert(newListItemFilters(itemFilters)),
             //_buttonAlert(),
             Expanded(child: Container(color: Colors.red,)),
 
@@ -112,20 +118,22 @@ class MyApp extends StatelessWidget {
         )
     );
   }
-  
+
   Widget _contentAlert(List<FilterItem> list){
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 20),
-      child: ListView.separated(
-        itemCount: list.length,
-        separatorBuilder: (BuildContext context, int index){
-          return const Divider(height: 15,);
-        },
-        itemBuilder: (BuildContext context, int index){
-          return _itemFilter(list[index]);
-        },
+    return Container(
+      height: 500,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 20),
+        child: ListView.separated(
+          itemCount: list.length,
+          separatorBuilder: (BuildContext context, int index){
+            return const Divider(height: 15,);
+          },
+          itemBuilder: (BuildContext context, int index){
+            return _itemFilter(list[index]);
+          },
+        ),
       ),
-      
     );
   }
 
@@ -143,7 +151,10 @@ class MyApp extends StatelessWidget {
         ),
         CupertinoSwitch(
             value: item.isActive,
-            onChanged: (item){
+            onChanged: (v){
+              setState(() {
+                onChangeFunction(item);
+              });
             }
         )
       ],

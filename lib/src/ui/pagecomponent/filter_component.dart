@@ -9,52 +9,62 @@ class FilterComponent extends StatefulWidget {
 
 class _FilterComponentState extends State<FilterComponent> {
   late Toggle toggle;
-  bool _toggled4 = false;
-  bool _toggled1 = false;
-  bool _toggled2 = false;
-  bool _toggled3 = false;
+  bool toggled4 = false;
+  bool toggled1 = false;
+  bool toggled2 = false;
+  bool toggled3 = false;
 
   @override
   Widget build(BuildContext context) {
-    return  FloatingActionButton(
-          child: const Icon(Icons.add),
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    icon: const SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: Align(
-                            alignment: Alignment.topRight,
-                            child: CloseButton())),
-                    iconPadding: EdgeInsets.zero,
-                    buttonPadding: EdgeInsets.zero,
-                    scrollable: true,
-                    content: Column(
-                      children: [
-                        _header(),
-                        const Divider(
-                          thickness: 2.5,
+    return  Column(
+      children: [
+
+        FloatingActionButton(
+              child: const Icon(Icons.add),
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        icon: const SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: Align(
+                                alignment: Alignment.topRight,
+                                child: CloseButton())),
+                        iconPadding: EdgeInsets.zero,
+                        buttonPadding: EdgeInsets.zero,
+                        scrollable: true,
+                        content: StatefulBuilder(
+                          builder: (BuildContext context,StateSetter setState) {
+                            return Column(
+                              children: [
+                                _header(),
+                                const Divider(
+                                  thickness: 2.5,
+                                ),
+                                SizedBox(
+                                    height: 450,
+                                    width: 300,
+                                    child: _body(setState)),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                _button( ),
+
+                              ],
+                            );
+                          }
                         ),
-                        SizedBox(
-                            height: 450,
-                            width: 300,
-                            child: SingleChildScrollView(child: _body())),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        _button(),
-                      ],
-                    ),
-                  );
-                });
-          }
-          );
+                      );
+                    });
+              }
+              ),
+      ],
+    );
   }
 
-  Center _bodyTest() {
+  /*Center _bodyTest() {
     return Center(
       child: Column(
         children: <Widget>[
@@ -103,9 +113,9 @@ class _FilterComponentState extends State<FilterComponent> {
                     const Divider(),
                     SwitchListTile(
                       value: _toggled4,
-                      onChanged: (bool value) {
+                      onChanged: (bool ola) {
                         setState(() {
-                          _toggled4 = value;
+                          _toggled4 = ola;
                         });
                       },
                       title: const Text('Toggle 3'),
@@ -119,7 +129,7 @@ class _FilterComponentState extends State<FilterComponent> {
         ],
       ),
     );
-  }
+  }*/
 
   Widget _header() {
     return Row(
@@ -133,14 +143,14 @@ class _FilterComponentState extends State<FilterComponent> {
     );
   }
 
-  Widget _body() {
+   _body(StateSetter setState) {
     return Column(children: <Widget>[
       SwitchListTile(
         contentPadding: const EdgeInsets.all(3),
-        value: _toggled1,
+        value: toggled1,
         onChanged: (bool value) {
           setState(() {
-            _toggled1 = value;
+            toggled1 = value;
           });
         },
         title: const Text('Toggle'),
@@ -149,10 +159,10 @@ class _FilterComponentState extends State<FilterComponent> {
       const Divider(),
       SwitchListTile(
         contentPadding: const EdgeInsets.all(3),
-        value: _toggled2,
+        value: toggled2,
         onChanged: (bool value) {
           setState(() {
-            _toggled2 = value;
+            toggled2 = value;
           });
         },
         title: const Text('Toggle 1'),
@@ -161,10 +171,10 @@ class _FilterComponentState extends State<FilterComponent> {
       const Divider(),
       SwitchListTile(
         contentPadding: const EdgeInsets.all(3),
-        value: _toggled3,
+        value: toggled3,
         onChanged: (bool value) {
           setState(() {
-            _toggled3 = value;
+            toggled3 = value;
           });
         },
         title: const Text('Toggle 2'),
@@ -173,111 +183,17 @@ class _FilterComponentState extends State<FilterComponent> {
       const Divider(),
       SwitchListTile(
         contentPadding: const EdgeInsets.all(3),
-        value: _toggled4,
+        value: toggled4,
         onChanged: (bool value) {
           setState(() {
-            _toggled4 = value;
+            print('cambiando estado');
+            toggled4 = value;
           });
         },
         title: const Text('Toggle 3'),
         secondary: const Icon(Icons.add_chart),
       ),
-      const Divider(),
-      SwitchListTile(
-        contentPadding: const EdgeInsets.all(3),
-        value: _toggled4,
-        onChanged: (bool value) {
-          setState(() {
-            _toggled4 = value;
-          });
-        },
-        title: const Text('Toggle 3'),
-        secondary: const Icon(Icons.add_chart),
-      ),
-      const Divider(),
-      SwitchListTile(
-        contentPadding: const EdgeInsets.all(3),
-        value: _toggled4,
-        onChanged: (bool value) {
-          setState(() {
-            _toggled4 = value;
-          });
-        },
-        title: const Text('Toggle 3'),
-        secondary: const Icon(Icons.add_chart),
-      ),
-      const Divider(),
-      SwitchListTile(
-        contentPadding: const EdgeInsets.all(3),
-        value: _toggled4,
-        onChanged: (bool value) {
-          setState(() {
-            _toggled4 = value;
-          });
-        },
-        title: const Text('Toggle 3'),
-        secondary: const Icon(Icons.add_chart),
-      ),
-      const Divider(),
-      SwitchListTile(
-        contentPadding: const EdgeInsets.all(3),
-        value: _toggled4,
-        onChanged: (bool value) {
-          setState(() {
-            _toggled4 = value;
-          });
-        },
-        title: const Text('Toggle 3'),
-        secondary: const Icon(Icons.add_chart),
-      ),
-      const Divider(),
-      SwitchListTile(
-        contentPadding: const EdgeInsets.all(3),
-        value: _toggled4,
-        onChanged: (bool value) {
-          setState(() {
-            _toggled4 = value;
-          });
-        },
-        title: const Text('Toggle 3'),
-        secondary: const Icon(Icons.add_chart),
-      ),
-      const Divider(),
-      SwitchListTile(
-        contentPadding: const EdgeInsets.all(3),
-        value: _toggled4,
-        onChanged: (bool value) {
-          setState(() {
-            _toggled4 = value;
-          });
-        },
-        title: const Text('Toggle 3'),
-        secondary: const Icon(Icons.add_chart),
-      ),
-      const Divider(),
-      SwitchListTile(
-        contentPadding: const EdgeInsets.all(3),
-        value: _toggled4,
-        onChanged: (bool value) {
-          setState(() {
-            _toggled4 = value;
-          });
-        },
-        title: const Text('Toggle 3'),
-        secondary: const Icon(Icons.add_chart),
-      ),
-      const Divider(),
-      SwitchListTile(
-        contentPadding: const EdgeInsets.all(3),
-        value: _toggled4,
-        onChanged: (bool value) {
-          setState(() {
-            _toggled4 = value;
-          });
-        },
-        title: const Text('Toggle 3'),
-        secondary: const Icon(Icons.add_chart),
-      ),
+
     ]);
   }
 

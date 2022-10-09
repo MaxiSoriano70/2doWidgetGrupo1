@@ -1,8 +1,10 @@
+import 'package:desafiogrupal2/src/ui/pagecomponent/custom_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FilterComponent extends StatefulWidget {
-  const FilterComponent({Key? key}) : super(key: key);
+  final  Color switchColor;
+  const FilterComponent({Key? key,this.switchColor=Colors.cyan }) : super(key: key);
 
   @override
   State<FilterComponent> createState() => _FilterComponentState();
@@ -21,6 +23,8 @@ class _FilterComponentState extends State<FilterComponent> {
       FilterItem(id:Task.jefe_taller, text: 'Jefe taller', icon: Icons.construction_rounded, isActive: true),
       FilterItem(id:Task.capacitacion, text: 'Capacitacion', icon: Icons.construction_rounded),
       FilterItem(id:Task.corte, text: 'Corte', icon: Icons.construction_rounded),
+      FilterItem(id:Task.corte, text: 'Corte', icon: Icons.construction_rounded),
+      FilterItem(id:Task.corte, text: 'Corte', icon: Icons.construction_rounded),
     ];
     return Column(
       children: [
@@ -31,6 +35,8 @@ class _FilterComponentState extends State<FilterComponent> {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15.0))),
                       icon: const SizedBox(
                           height: 20,
                           width: 20,
@@ -46,7 +52,7 @@ class _FilterComponentState extends State<FilterComponent> {
                           const Divider(thickness: 2.5,),
                           SizedBox(
                               height: 450,
-                              width: 300,
+                              width: 400,
                               child: StatefulBuilder(builder:
                                   (BuildContext context, StateSetter setState) {
                                 return _list(filtros,setState);
@@ -69,7 +75,7 @@ class _FilterComponentState extends State<FilterComponent> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: const [
         Text(
-          'Filters',
+          'Filtros',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
         )
       ],
@@ -90,7 +96,8 @@ class _FilterComponentState extends State<FilterComponent> {
       secondary: Icon(item.icon, color: item.backgroundColor,),
     );
   }*/
-  _cell(FilterItem item,StateSetter setState) {
+
+  /*_cell(FilterItem item,StateSetter setState) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -110,27 +117,54 @@ class _FilterComponentState extends State<FilterComponent> {
       });
     })]
     );
-    }
+    }*/
+  _cell(FilterItem item,StateSetter setState) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              CircleAvatar(backgroundColor: item.backgroundColor,child: Icon(item.icon,size: 25,),),
+              const SizedBox(width: 10,),
+              Text(item.text,style: const TextStyle(fontSize: 15,fontWeight: FontWeight.bold),)
+            ],
+          ),
+          CupertinoSwitch(
+              activeColor: widget.switchColor,
+              value: item.isActive,
+              onChanged: (bool value) {
+                setState(() {
+                  item.onChange();
+                });
+              }
+          ),
+
+        ],
+      ),
+    );
+  }
 
   _list(List<FilterItem> lista,StateSetter setState) {
-    return  ListView.separated(
-        itemBuilder: (context, index) => _cell( lista[index],setState),
-        separatorBuilder: (context, index) => const Divider(height: 2,),
-        itemCount:lista.length );
+    return  Scrollbar(
+      child: ListView.separated(
+          itemBuilder: (context, index) => _cell( lista[index],setState),
+          separatorBuilder: (context, index) => const Divider(height: 2,),
+          itemCount:lista.length ),
+    );
   }
 
   _button() {
     return Container(
         // color: Colors.blue,
-        width: 300,
-        child: const ElevatedButton(
-            style: ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll(Colors.blue)),
-            onPressed: null,
-            child: Text(
-              'Aceptar',
-              style: TextStyle(color: Colors.white),
-            )));
+
+        child:  CustomButton(
+          backgroundColor: widget.switchColor,
+          text: 'Aceptar',
+          padding: EdgeInsets.symmetric(horizontal: 80,vertical: 10),
+        ));
   }
 }
 

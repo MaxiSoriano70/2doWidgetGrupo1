@@ -62,25 +62,25 @@ class _MyAppState extends State<MyApp> {
   final List<FilterItem> itemFilters=[];
 
   List<FilterItem> newListItemFilters(List<FilterItem> list){
-    FilterItem item1=FilterItem("Mantenimiento 1",Icons.pentagon);
+    FilterItem item1=FilterItem("Ma",Icons.pentagon);
     list.add(item1);
-    FilterItem item2=FilterItem("Mantenimiento 2",Icons.add_circle);
+    FilterItem item2=FilterItem("Ma",Icons.add_circle);
     list.add(item2);
-    FilterItem item3=FilterItem("Mantenimiento 3",Icons.pentagon);
+    FilterItem item3=FilterItem("Ma",Icons.pentagon);
     list.add(item3);
-    FilterItem item4=FilterItem("Mantenimiento 4",Icons.add_circle);
+    FilterItem item4=FilterItem("Ma",Icons.add_circle);
     list.add(item4);
-    FilterItem item5=FilterItem("Mantenimiento 5",Icons.pentagon);
+    FilterItem item5=FilterItem("Ma",Icons.pentagon);
     list.add(item5);
-    FilterItem item6=FilterItem("Mantenimiento 6",Icons.add_circle);
+    FilterItem item6=FilterItem("Ma",Icons.add_circle);
     list.add(item6);
-    FilterItem item7=FilterItem("Mantenimiento 7",Icons.pentagon);
+    FilterItem item7=FilterItem("Ma",Icons.pentagon);
     list.add(item7);
-    FilterItem item8=FilterItem("Mantenimiento 8",Icons.add_circle);
+    FilterItem item8=FilterItem("Ma",Icons.add_circle);
     list.add(item8);
-    FilterItem item9=FilterItem("Mantenimiento 9",Icons.pentagon);
+    FilterItem item9=FilterItem("Ma",Icons.pentagon);
     list.add(item9);
-    FilterItem item10=FilterItem("Mantenimiento 10",Icons.add_circle);
+    FilterItem item10=FilterItem("Ma",Icons.add_circle);
     list.add(item10);
     return list;
   }
@@ -127,9 +127,9 @@ class _MyAppState extends State<MyApp> {
   Widget _contentAlert(List<FilterItem> list){
     return SizedBox(
       height: 500,
-      width: 350,
+      width: 400,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 20,),
         child: ListView.separated(
           itemCount: list.length,
           separatorBuilder: (BuildContext context, int index){

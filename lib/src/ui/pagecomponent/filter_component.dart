@@ -48,7 +48,7 @@ class _FilterComponentState extends State<FilterComponent> {
                               width: 300,
                               child: StatefulBuilder(builder:
                                   (BuildContext context, StateSetter setState) {
-                                return _body(filtros,setState);
+                                return _list(filtros,setState);
                               })),
                           const SizedBox(height: 20,),
                           _button(),
@@ -89,7 +89,7 @@ class _FilterComponentState extends State<FilterComponent> {
     );
   }
 
-  _body(List<FilterItem> lista,StateSetter setState) {
+  _list(List<FilterItem> lista,StateSetter setState) {
     return  ListView.separated(
         itemBuilder: (context, index) => _cell( lista[index],setState),
         separatorBuilder: (context, index) => const Divider(height: 2,),

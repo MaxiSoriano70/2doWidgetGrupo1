@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FilterComponent extends StatefulWidget {
@@ -75,8 +76,9 @@ class _FilterComponentState extends State<FilterComponent> {
     );
   }
 
-  _cell(FilterItem item,StateSetter setState) {
-    return SwitchListTile(
+  /*_cell(FilterItem item,StateSetter setState) {
+    return SwitchListTile.adaptive(
+      activeColor: Colors.cyan,
       contentPadding: const EdgeInsets.all(3),
       value: item.isActive,
       onChanged: (bool value) {
@@ -87,7 +89,28 @@ class _FilterComponentState extends State<FilterComponent> {
       title: Text(item.text),
       secondary: Icon(item.icon, color: item.backgroundColor,),
     );
-  }
+  }*/
+  _cell(FilterItem item,StateSetter setState) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+      Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        CircleAvatar(backgroundColor: item.backgroundColor,child: Icon(item.icon),),
+        const SizedBox(width: 15,),
+        Text(item.text)
+      ],
+    ),
+    CupertinoSwitch(
+    value: item.isActive,
+    onChanged: (bool value){
+      setState(() {
+        item.onChange();
+      });
+    })]
+    );
+    }
 
   _list(List<FilterItem> lista,StateSetter setState) {
     return  ListView.separated(

@@ -18,7 +18,6 @@ class _FilterComponentState extends State<FilterComponent> {
   Widget build(BuildContext context) {
     return  Column(
       children: [
-
         FloatingActionButton(
               child: const Icon(Icons.add),
               onPressed: () {
@@ -35,9 +34,7 @@ class _FilterComponentState extends State<FilterComponent> {
                         iconPadding: EdgeInsets.zero,
                         buttonPadding: EdgeInsets.zero,
                         scrollable: true,
-                        content: StatefulBuilder(
-                          builder: (BuildContext context,StateSetter setState) {
-                            return Column(
+                        content: Column(
                               children: [
                                 _header(),
                                 const Divider(
@@ -46,16 +43,18 @@ class _FilterComponentState extends State<FilterComponent> {
                                 SizedBox(
                                     height: 450,
                                     width: 300,
-                                    child: _body(setState)),
+                                    child: StatefulBuilder(
+                                      builder:(BuildContext context, StateSetter setState){
+                                      return _body(setState);
+                                    }
+                                )),
                                 const SizedBox(
                                   height: 20,
                                 ),
                                 _button( ),
 
                               ],
-                            );
-                          }
-                        ),
+                            ),
                       );
                     });
               }

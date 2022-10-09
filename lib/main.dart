@@ -1,4 +1,4 @@
-import 'package:desafiogrupal2/src/ui/pagecomponent/filter_component.dart';
+import 'package:desafiogrupal2/src/ui/pagecomponent/custom_button.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,6 +14,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        scrollbarTheme: ScrollbarThemeData(
+        )
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -34,15 +36,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool _toggled4 = false;
-  bool _toggled1 = false;
-  bool _toggled2 = false;
-  bool _toggled3 = false;
-
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: FilterComponent(),
-    );
+    return  Scaffold(
+      body: Theme(
+        data: Theme.of(context).copyWith(
+          scrollbarTheme: ScrollbarThemeData(
+            thumbColor: MaterialStateProperty.all(Colors.teal.shade400),
+          ),
+        ), child: FilterComponent(switchColor: Colors.teal.shade400 ), ),
+      );
   }
 }

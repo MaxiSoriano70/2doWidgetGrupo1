@@ -26,8 +26,7 @@ class _FilterComponentState extends State<FilterComponent> {
     return AlertDialog(
       title: _header(),
       titlePadding: const EdgeInsets.symmetric(horizontal: 35),
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(15.0))),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
       icon: _buttonClose(),
       iconPadding: const EdgeInsets.only(top: 8, right: 8),
       content: Column(
@@ -40,7 +39,7 @@ class _FilterComponentState extends State<FilterComponent> {
                     width: 300,
                     child: StatefulBuilder(
                         builder: (BuildContext context, StateSetter setState) {
-                      return _listFilterTwo(filters, setState);
+                      return _listFilter(filters, setState);
                     })),
               ],
             ),
@@ -83,7 +82,7 @@ class _FilterComponentState extends State<FilterComponent> {
     );
   }
 
-  _cellFilterTwo(FilterItem item, StateSetter setState) {
+  _cellFilter(FilterItem item, StateSetter setState) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
       child: Container(
@@ -129,7 +128,7 @@ class _FilterComponentState extends State<FilterComponent> {
     );
   }
 
-  _listFilterTwo(List<FilterItem> list, StateSetter setState) {
+  _listFilter(List<FilterItem> list, StateSetter setState) {
     return RawScrollbar(
       controller: scrollPosicioned,
       thumbVisibility: true,
@@ -141,65 +140,11 @@ class _FilterComponentState extends State<FilterComponent> {
       radius: const Radius.circular(5),
       child: ListView.builder(
         controller: scrollPosicioned,
-          itemBuilder: (context, index) => _cellFilterTwo(list[index], setState),
+          itemBuilder: (context, index) => _cellFilter(list[index], setState),
           itemCount: list.length),
     );
   }
 
-// _cellFilter(FilterItem item, StateSetter setState) {
-//   return Padding(
-//     padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-//     child: Row(
-//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//       children: [
-//         Row(
-//           mainAxisAlignment: MainAxisAlignment.start,
-//           children: [
-//             CircleAvatar(
-//               radius: 16,
-//               backgroundColor: item.backgroundColor,
-//               child: Icon(
-//                 item.icon,
-//                 size: 23,
-//                 color: Colors.white,
-//               ),
-//             ),
-//             const SizedBox(
-//               width: 10,
-//             ),
-//             Text(
-//               item.text,
-//               style:
-//                   const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-//             ),
-//           ],
-//         ),
-//         Padding(
-//           padding: const EdgeInsets.only(right: 8.0),
-//           child: CupertinoSwitch(
-//               activeColor: widget.switchColor,
-//               value: item.isActive,
-//               onChanged: (bool value) {
-//                 setState(() {
-//                   item.onChange();
-//                 });
-//               }),
-//         ),
-//       ],
-//     ),
-//   );
-// }
-
-// _listFilter(List<FilterItem> list, StateSetter setState) {
-//   return ListView.separated(
-//       itemBuilder: (context, index) => _cellFilter(list[index], setState),
-//       separatorBuilder: (context, index) => const Divider(
-//             height: 2,
-//             indent: 20,
-//             endIndent: 30,
-//           ),
-//       itemCount: list.length);
-// }
 }
 
 class FilterItem {

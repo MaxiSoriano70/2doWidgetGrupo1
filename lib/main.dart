@@ -37,15 +37,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool _toggled4 = false;
-  bool _toggled1 = false;
-  bool _toggled2 = false;
-  bool _toggled3 = false;
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      body: FilterComponent(switchColor: Colors.teal.shade400 ), );
-
+    return
+      Scaffold(
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return
+              FilterComponent(switchColor: Colors.teal.shade400);
+          },
+        );
+      }),
+    );
   }
 }

@@ -14,6 +14,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        scrollbarTheme: ScrollbarThemeData(
+          thumbColor: MaterialStatePropertyAll(Colors.teal),
+        )
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -41,8 +44,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: FilterComponent(),
-    );
+    return  Scaffold(
+      body: FilterComponent(switchColor: Colors.teal.shade400 ), );
+
   }
 }

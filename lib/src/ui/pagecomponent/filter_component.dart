@@ -14,7 +14,7 @@ class FilterComponent extends StatefulWidget {
 }
 
 class _FilterComponentState extends State<FilterComponent> {
-  ScrollController scrollPosicioned = ScrollController();
+  ScrollController scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +130,7 @@ class _FilterComponentState extends State<FilterComponent> {
 
   _listFilter(List<FilterItem> list, StateSetter setState) {
     return RawScrollbar(
-      controller: scrollPosicioned,
+      controller: scrollController,
       thumbVisibility: true,
       thickness: 5,
       thumbColor: widget.switchColor,
@@ -139,11 +139,12 @@ class _FilterComponentState extends State<FilterComponent> {
       trackRadius: const Radius.circular(5),
       radius: const Radius.circular(5),
       child: ListView.builder(
-        controller: scrollPosicioned,
+        controller: scrollController,
           itemBuilder: (context, index) => _cellFilter(list[index], setState),
           itemCount: list.length),
     );
   }
+
 
 }
 

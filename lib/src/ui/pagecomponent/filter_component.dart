@@ -2,179 +2,177 @@ import 'package:desafiogrupal2/src/ui/pagecomponent/custom_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class FilterComponent extends StatelessWidget {
-  final  Color switchColor;
-  List<FilterItem>? lista = [];
-  Function(Task)? onTap;
-  FilterComponent({Key? key,this.switchColor=Colors.cyan,this.lista, this.onTap }) : super(key: key);
 
+class FilterComponent extends StatefulWidget {
+  final Color color;
+  final List<FilterItem>? items;
+  final Function(List<int>)? onTap;
+  const FilterComponent({Key? key, this.color = Colors.cyan, this.items, this.onTap})
+      : super(key: key);
 
   @override
+  State<FilterComponent> createState() => _FilterComponentState();
+}
+
+class _FilterComponentState extends State<FilterComponent> {
+  ScrollController scrollController = ScrollController();
+  List<int> actives = [];
+  void getActiveFilters(){
+    widget.items!.forEach((element) {
+      if(element.isActive){
+        actives.add(element.id);
+      }
+    });
+  }
+  @override
   Widget build(BuildContext context) {
-    List<Task> activeFilters = [];
-    return Column(
-      children: [
-        FloatingActionButton(
-            child: const Icon(Icons.add),
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Column(
-                        children: const [
-                          Center(child: Text(
-                            'Filtros',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 25),
-                          ),),
-                          Divider(thickness: 2.5,),
-                        ],
-                      ),
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(15.0))),
-                      icon: const SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: Align(
-                              alignment: Alignment.topRight,
-                              child: CloseButton())),
-                      iconPadding: EdgeInsets.zero,
-                      buttonPadding: EdgeInsets.zero,
-                      scrollable: true,
-                      content: Column(
-                        children: [
+    return _alertDialogCustom(widget.items!);
+  }
 
-                          SizedBox(
-                              height: 450,
-                              width: 400,
-                              child: StatefulBuilder(builder:
-                                  (BuildContext context, StateSetter setState) {
-                                return _list( setState);
-                              })),
-                          const SizedBox(height: 20,),
-                        ],
-                      ),
-
-                      actionsPadding: const EdgeInsets.only(bottom: 25),
-                      actions: [Center(child: CustomButton(
-                        backgroundColor: switchColor,
-                        text: 'Aceptar',
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 80, vertical: 10),
-                      ),)
-                      ],
-                    );
-                  });
-            }),
+  _alertDialogCustom(List<FilterItem> filters) {
+    return AlertDialog(
+      title: _header(),
+      titlePadding: const EdgeInsets.symmetric(horizontal: 35),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+      icon: _buttonClose(),
+      iconPadding: const EdgeInsets.only(top: 8, right: 8),
+      content: Column(
+        children: [
+          Expanded(
+            child: Column(
+              children: [
+                SizedBox(
+                    height: 450,
+                    width: 300,
+                    child: StatefulBuilder(
+                        builder: (BuildContext context, StateSetter setState) {
+                          return _listFilter(filters, setState);
+                        })),
+              ],
+            ),
+          ),
+        ],
+      ),
+      contentPadding: const EdgeInsets.all(15),
+      actionsAlignment: MainAxisAlignment.center,
+      actionsPadding: const EdgeInsets.only(bottom: 25),
+      actions: [
+        CustomButton(
+          backgroundColor: widget.color,
+          text: 'Aceptar',
+          padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 10),
+          onTap:() {
+             getActiveFilters();
+             widget.onTap!(actives);
+             Navigator.pop(context);},
+          ),
       ],
+    );
+  }
+  _buttonClose() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: const [CloseButton()],
     );
   }
 
 
   _header() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        Text(
+    return Container(
+      decoration: const BoxDecoration(
+          border: Border(bottom: BorderSide(color: Colors.grey))),
+      child: const Padding(
+        padding: EdgeInsets.only(bottom: 12.0),
+        child: Text(
           'Filtros',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-        )
-      ],
-    );
-  }
-
-  _cell(FilterItem item,StateSetter setState) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              CircleAvatar(backgroundColor: item.backgroundColor,child: Icon(item.icon,size: 25,),),
-              const SizedBox(width: 10,),
-              Text(item.text,style: const TextStyle(fontSize: 15,fontWeight: FontWeight.bold),)
-            ],
-          ),
-          CupertinoSwitch(
-              activeColor:  switchColor,
-              value: item.isActive,
-              onChanged: (bool value) {
-                if(value){
-
-                }
-                setState(() {
-                  item.onChange();
-                });
-              }
-          ),
-
-        ],
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        ),
       ),
     );
   }
 
-  _list( StateSetter setState) {
-    return  RawScrollbar(
-
-      fadeDuration: Duration(milliseconds: 0),
-      controller: ScrollController(initialScrollOffset: 0,),
-      trackVisibility: true,
-      trackColor: Colors.grey,
-      thumbVisibility: true,
-      thickness: 3,
-      thumbColor: Colors.teal,
-      //minOverscrollLength: 2,
-
-      child: ListView.separated(
-          itemBuilder: (context, index) => _cell( lista![index],setState),
-          separatorBuilder: (context, index) => const Divider(height: 2,),
-          itemCount:lista!.length ),
+  _cellFilter(FilterItem item, StateSetter setState) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+      child: Container(
+        padding: const EdgeInsets.only(bottom: 5),
+        decoration: BoxDecoration(
+            border: Border(bottom: BorderSide(color: Colors.grey.shade300))),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                CircleAvatar(
+                  radius: 16,
+                  backgroundColor: item.iconBackgroundColor,
+                  child: Icon(
+                    item.icon,
+                    size: 23,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  item.title,
+                  style: const TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            CupertinoSwitch(
+                activeColor: widget.color,
+                value: item.isActive,
+                onChanged: (bool value) {
+                  setState(() {
+                    item.onChange();
+                  });
+                }),
+          ],
+        ),
+      ),
     );
   }
 
-  _button() {
-    return Container(
-        child:  CustomButton(
-          backgroundColor:  switchColor,
-          text: 'Aceptar',
-          padding: EdgeInsets.symmetric(horizontal: 80,vertical: 10),
-        ));
+  _listFilter(List<FilterItem> list, StateSetter setState) {
+    return
+      RawScrollbar(
+      controller: scrollController,
+      thumbVisibility: true,
+      thickness: 5,
+      thumbColor: widget.color,
+      trackVisibility: true,
+      trackColor: Colors.grey,
+      trackRadius: const Radius.circular(5),
+      radius: const Radius.circular(5),
+      child:ListView.builder(
+          controller: scrollController,
+          itemBuilder: (context, index) => _cellFilter(list[index], setState),
+          itemCount: list.length)
+      );
   }
-  }
-
+}
 
 class FilterItem {
-  Task id;
-  String text;
+  int id;
+  String title;
   bool isActive;
   IconData icon;
-  Color backgroundColor;
-
-
-  FilterItem({
-      required this.id,
-      required this.text,
-      required this.icon,
-      this.isActive = false,
-      this.backgroundColor = Colors.lightGreenAccent});
+  Color iconBackgroundColor;
+  FilterItem(
+      {required this.id,
+        required this.title,
+        required this.icon,
+        this.isActive = false,
+        this.iconBackgroundColor = Colors.lightGreenAccent});
 
   void onChange() {
     isActive = !isActive;
   }
-
 }
 
-enum Task {
-  mantenimiento,
-  corte,
-  calidad,
-  jefe_taller,
-  limpieza,
-  capacitacion,
-  confeccion,
-  jefe_linea
-}
+
+

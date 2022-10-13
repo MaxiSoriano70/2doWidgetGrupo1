@@ -36,132 +36,64 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   List<FilterItem> filters = [
     FilterItem(
-        id: Task.mantenimiento,
+        id: 0,
         text: 'Mantenimiento',
         icon: Icons.settings,
         backgroundColor: Colors.grey),
     FilterItem(
-      id: Task.confeccion,
+      id: 1,
       text: 'Corte',
       icon: Icons.content_cut_sharp,
       backgroundColor: Colors.pink.shade200,
     ),
     FilterItem(
-        id: Task.jefe_linea,
+        id: 2,
         text: 'Calidad',
         backgroundColor: Colors.purple.shade300,
         icon: Icons.assignment_ind_outlined),
     FilterItem(
-      id: Task.jefe_taller,
+      id: 3,
       text: 'Jefe taller',
       icon: Icons.groups_outlined,
       backgroundColor: Colors.deepPurpleAccent,
     ),
     FilterItem(
-        id: Task.capacitacion,
+        id: 4,
         text: 'Limpieza',
         backgroundColor: Colors.blue,
         icon: Icons.sanitizer_sharp),
     FilterItem(
-        id: Task.corte,
+        id: 5,
         text: 'Capacitación',
         backgroundColor: Colors.green.shade700,
         icon: Icons.school_sharp),
     FilterItem(
-        id: Task.corte,
+        id: 6,
         text: 'Confección',
         backgroundColor: Colors.deepOrange,
         icon: Icons.person),
     FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
+        id: 7, text: 'Jefe línea', icon: Icons.construction_rounded),
     FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
+        id: 8, text: 'Jefe línea', icon: Icons.construction_rounded),
     FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
+        id: 9, text: 'Jefe línea', icon: Icons.construction_rounded),
     FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: Task.corte, text: 'Jefe línea', icon: Icons.construction_rounded),
+        id: 10, text: 'Jefe línea', icon: Icons.construction_rounded),
   ];
   @override
   Widget build(BuildContext context) {
     return
-      Scaffold(
+/*      Scaffold(
       floatingActionButton: FloatingActionButton(onPressed: () {
         showDialog(
           context: context,
           builder: (BuildContext context) {
-            return
-              FilterComponent(switchColor: Colors.teal.shade400, items: filters,);
-          },
-        );
-      }),
+            return*/
+              FilterComponent(switchColor: Colors.teal.shade400, items: filters, onTap: () => print(filters[text]),
+        //   },
+        // );
+      // }),
     );
   }
 }

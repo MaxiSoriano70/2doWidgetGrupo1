@@ -2,12 +2,12 @@ import 'package:desafiogrupal2/src/ui/pagecomponent/custom_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
 class FilterComponent extends StatefulWidget {
   final Color color;
   final List<FilterItem>? items;
   final Function(List<int>)? onTap;
-  const FilterComponent({Key? key, this.color = Colors.cyan, this.items, this.onTap})
+  const FilterComponent(
+      {Key? key, this.color = Colors.cyan, this.items, this.onTap})
       : super(key: key);
 
   @override
@@ -17,41 +17,36 @@ class FilterComponent extends StatefulWidget {
 class _FilterComponentState extends State<FilterComponent> {
   ScrollController scrollController = ScrollController();
   List<int> actives = [];
-  void getActiveFilters(){
+  void getActiveFilters() {
     widget.items!.forEach((element) {
-      if(element.isActive){
+      if (element.isActive) {
         actives.add(element.id);
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
-    return _alertDialogCustom(widget.items!);
+    return _alertDialogCustom();
   }
 
-  _alertDialogCustom(List<FilterItem> filters) {
+  _alertDialogCustom() {
     return AlertDialog(
       title: _header(),
       titlePadding: const EdgeInsets.symmetric(horizontal: 35),
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15.0))),
       icon: _buttonClose(),
       iconPadding: const EdgeInsets.only(top: 8, right: 8),
-      content: Column(
-        children: [
-          Expanded(
-            child: Column(
-              children: [
-                SizedBox(
-                    height: 450,
-                    width: 300,
-                    child: StatefulBuilder(
-                        builder: (BuildContext context, StateSetter setState) {
-                          return _listFilter(filters, setState);
-                        })),
-              ],
-            ),
-          ),
-        ],
+      content:
+      SizedBox(
+        height:450,
+        width: 300,
+          child: StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+            return _listFilter(setState);
+          }),
+
       ),
       contentPadding: const EdgeInsets.all(15),
       actionsAlignment: MainAxisAlignment.center,
@@ -61,21 +56,22 @@ class _FilterComponentState extends State<FilterComponent> {
           backgroundColor: widget.color,
           text: 'Aceptar',
           padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 10),
-          onTap:() {
-             getActiveFilters();
-             widget.onTap!(actives);
-             Navigator.pop(context);},
-          ),
+          onTap: () {
+            getActiveFilters();
+            widget.onTap!(actives);
+            Navigator.pop(context);
+          },
+        ),
       ],
     );
   }
+
   _buttonClose() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: const [CloseButton()],
     );
   }
-
 
   _header() {
     return Container(
@@ -89,6 +85,29 @@ class _FilterComponentState extends State<FilterComponent> {
         ),
       ),
     );
+  }
+
+  _listFilter(StateSetter setState) {
+    return RawScrollbar(
+        controller: scrollController,
+        thumbVisibility: true,
+        thickness: 5,
+        thumbColor: widget.color,
+        trackVisibility: true,
+        trackColor: Colors.grey,
+        trackRadius: const Radius.circular(5),
+        radius: const Radius.circular(5),
+        child: Theme(
+          data: ThemeData(
+              scrollbarTheme: const ScrollbarThemeData(
+            thickness: MaterialStatePropertyAll(5),
+          )),
+          child: ListView.builder(
+              controller: scrollController,
+              itemBuilder: (context, index) =>
+                  _cellFilter(widget.items![index], setState),
+              itemCount: widget.items!.length),
+        ));
   }
 
   _cellFilter(FilterItem item, StateSetter setState) {
@@ -136,24 +155,6 @@ class _FilterComponentState extends State<FilterComponent> {
       ),
     );
   }
-
-  _listFilter(List<FilterItem> list, StateSetter setState) {
-    return
-      RawScrollbar(
-      controller: scrollController,
-      thumbVisibility: true,
-      thickness: 5,
-      thumbColor: widget.color,
-      trackVisibility: true,
-      trackColor: Colors.grey,
-      trackRadius: const Radius.circular(5),
-      radius: const Radius.circular(5),
-      child:ListView.builder(
-          controller: scrollController,
-          itemBuilder: (context, index) => _cellFilter(list[index], setState),
-          itemCount: list.length)
-      );
-  }
 }
 
 class FilterItem {
@@ -164,15 +165,12 @@ class FilterItem {
   Color iconBackgroundColor;
   FilterItem(
       {required this.id,
-        required this.title,
-        required this.icon,
-        this.isActive = false,
-        this.iconBackgroundColor = Colors.lightGreenAccent});
+      required this.title,
+      required this.icon,
+      this.isActive = false,
+      this.iconBackgroundColor = Colors.lightGreenAccent});
 
   void onChange() {
     isActive = !isActive;
   }
 }
-
-
-

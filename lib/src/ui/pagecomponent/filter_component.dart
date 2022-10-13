@@ -27,7 +27,10 @@ class _FilterComponentState extends State<FilterComponent> {
 
   @override
   Widget build(BuildContext context) {
-    return _alertDialogCustom();
+    return Theme(data: ThemeData(scrollbarTheme: const ScrollbarThemeData(
+            thickness: MaterialStatePropertyAll(5),
+            thumbColor: MaterialStatePropertyAll(Colors.transparent)
+          )), child: _alertDialogCustom());
   }
 
   _alertDialogCustom() {
@@ -96,17 +99,18 @@ class _FilterComponentState extends State<FilterComponent> {
         trackColor: Colors.grey,
         trackRadius: const Radius.circular(5),
         radius: const Radius.circular(5),
-        child: Theme(
-          data: ThemeData(
-              scrollbarTheme: const ScrollbarThemeData(
-            thickness: MaterialStatePropertyAll(5),
-          )),
+        // child: Theme(
+        //   data: ThemeData(w
+        //       scrollbarTheme: const ScrollbarThemeData(
+        //     thickness: MaterialStatePropertyAll(5),
+        //   )),
           child: ListView.builder(
               controller: scrollController,
               itemBuilder: (context, index) =>
                   _cellFilter(widget.items![index], setState),
               itemCount: widget.items!.length),
-        ));
+        );
+    // );
   }
 
   _cellFilter(FilterItem item, StateSetter setState) {

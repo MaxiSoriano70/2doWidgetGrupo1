@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class FilterComponent extends StatefulWidget {
   final Color switchColor;
   final List<FilterItem>? items;
-  final VoidCallback? onTap;
+  final Function(List<Task>)? onTap;
   const FilterComponent({Key? key, this.switchColor = Colors.cyan, this.items, this.onTap})
       : super(key: key);
 
@@ -15,6 +15,7 @@ class FilterComponent extends StatefulWidget {
 
 class _FilterComponentState extends State<FilterComponent> {
   ScrollController scrollController = ScrollController();
+  List<Task> active  = [];
 
   @override
   Widget build(BuildContext context) {
@@ -32,16 +33,18 @@ class _FilterComponentState extends State<FilterComponent> {
       content: Column(
         children: [
           Expanded(
-            child: Column(
-              children: [
-                SizedBox(
-                    height: 450,
-                    width: 300,
-                    child: StatefulBuilder(
-                        builder: (BuildContext context, StateSetter setState) {
-                      return _listFilter(filters, setState);
-                    })),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                      height: 450,
+                      width: 300,
+                      child: StatefulBuilder(
+                          builder: (BuildContext context, StateSetter setState) {
+                        return _listFilter(filters, setState);
+                      })),
+                ],
+              ),
             ),
           ),
 
@@ -55,7 +58,7 @@ class _FilterComponentState extends State<FilterComponent> {
           backgroundColor: widget.switchColor,
           text: 'Aceptar',
           padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 10),
-          onTap: widget.onTap,
+          onTap:(){ widget.onTap!(active);},
         ),
       ],
     );
@@ -118,6 +121,12 @@ class _FilterComponentState extends State<FilterComponent> {
                 activeColor: widget.switchColor,
                 value: item.isActive,
                 onChanged: (bool value) {
+                  if(value){
+                    active.add(item.id);
+                  }
+                  else {
+                    active.remove(item.id);
+                  }
                   setState(() {
                     item.onChange();
                   });
@@ -150,7 +159,7 @@ class _FilterComponentState extends State<FilterComponent> {
 
 class FilterItem {
   Task id;
-  String text;
+  String text;//name o label o title
   bool isActive;
   IconData icon;
   Color backgroundColor;

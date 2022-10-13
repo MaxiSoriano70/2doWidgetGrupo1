@@ -158,10 +158,11 @@ class _MyHomePageState extends State<MyHomePage> {
           context: context,
           builder: (BuildContext context) {
             return
-              FilterComponent(switchColor: Colors.teal.shade400, items: filters,);
+              FilterComponent(switchColor: Colors.teal.shade400, items: filters,onTap: (lista){lista.forEach((element) {print(element.index);});},);
           },
         );
       }),
     );
   }
 }
+//sacar el enum y manejarnos con ID

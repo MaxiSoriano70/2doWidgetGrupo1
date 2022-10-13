@@ -50,7 +50,7 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: isEnabled ? ()=> onTap??=(){} : null,
+        onPressed:(){ onTap!();},
         style: buttonStyle,
         child: Padding(
           padding: padding,

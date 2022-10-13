@@ -1,3 +1,4 @@
+
 import 'package:desafiogrupal2/src/ui/pagecomponent/filter_component.dart';
 import 'package:flutter/material.dart';
 
@@ -34,66 +35,70 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<FilterItem> filters = [
+  List<FilterItem> filtros = [
     FilterItem(
-        id: 0,
-        text: 'Mantenimiento',
+        id: 1,
+        title: 'Mantenimiento',
         icon: Icons.settings,
-        backgroundColor: Colors.grey),
+        iconBackgroundColor:Colors.grey),
     FilterItem(
-      id: 1,
-      text: 'Corte',
+      id: 2,
+      title: 'Corte',
       icon: Icons.content_cut_sharp,
-      backgroundColor: Colors.pink.shade200,
+      iconBackgroundColor: Colors.pink.shade200,
     ),
     FilterItem(
-        id: 2,
-        text: 'Calidad',
-        backgroundColor: Colors.purple.shade300,
+        id: 3,
+        title: 'Calidad',
+        iconBackgroundColor: Colors.purple.shade300,
         icon: Icons.assignment_ind_outlined),
     FilterItem(
-      id: 3,
-      text: 'Jefe taller',
+      id: 4,
+      title: 'Jefe taller',
       icon: Icons.groups_outlined,
-      backgroundColor: Colors.deepPurpleAccent,
+      iconBackgroundColor:  Colors.deepPurpleAccent,
     ),
     FilterItem(
-        id: 4,
-        text: 'Limpieza',
-        backgroundColor: Colors.blue,
+        id: 5,
+        title: 'Limpieza',
+        iconBackgroundColor: Colors.blue,
         icon: Icons.sanitizer_sharp),
     FilterItem(
-        id: 5,
-        text: 'Capacitación',
-        backgroundColor: Colors.green.shade700,
+        id: 6,
+        title: 'Capacitación',
+        iconBackgroundColor: Colors.green.shade700,
         icon: Icons.school_sharp),
     FilterItem(
-        id: 6,
-        text: 'Confección',
-        backgroundColor: Colors.deepOrange,
+        id: 7,
+        title: 'Confección',
+        iconBackgroundColor: Colors.deepOrange,
         icon: Icons.person),
-    FilterItem(
-        id: 7, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: 8, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: 9, text: 'Jefe línea', icon: Icons.construction_rounded),
-    FilterItem(
-        id: 10, text: 'Jefe línea', icon: Icons.construction_rounded),
+    FilterItem(id: 8, title: 'Jefe línea', icon: Icons.construction_rounded),
+    FilterItem(id: 9, title: 'Jefe línea', icon: Icons.construction_rounded),
+    FilterItem(id: 10, title: 'Jefe línea', icon: Icons.construction_rounded),
+    FilterItem(id: 11, title: 'Jefe línea', icon: Icons.construction_rounded),
+    FilterItem(id: 12, title: 'Jefe línea', icon: Icons.construction_rounded),
+    FilterItem(id: 13, title: 'Jefe línea', icon: Icons.construction_rounded),
+    FilterItem(id: 14, title: 'Jefe línea', icon: Icons.construction_rounded),
+    FilterItem(id: 15, title: 'Jefe línea', icon: Icons.construction_rounded),
+    FilterItem(id: 16, title: 'Jefe línea', icon: Icons.construction_rounded),
+    FilterItem(id: 17, title: 'Jefe línea', icon: Icons.construction_rounded),
   ];
+
   @override
   Widget build(BuildContext context) {
     return
-/*      Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return*/
-              FilterComponent(switchColor: Colors.teal.shade400, items: filters, onTap: () => print(filters[text]),
-        //   },
-        // );
-      // }),
-    );
+
+      Scaffold(
+        floatingActionButton: FloatingActionButton(onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return
+              FilterComponent(color: Colors.teal.shade400, items: filtros,onTap: (lista){print(lista);},); }
+          );
+            }
+          )
+        );}
+
   }
-}
